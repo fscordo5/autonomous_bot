@@ -1,5 +1,5 @@
 
-The codesin this repository were written to design a level 3 ADAS system for a scale vehicle. In particular, the vehicle is capable of carrying out three tasks: Path Planing, Obstacle Avoidance ( both static and dynamic) and Traffic Sign Recognition. 
+The codes in this repository were written to design a level 3 ADAS system for a scale vehicle. In particular, the vehicle is capable of carrying out three tasks: Path Planing, Obstacle Avoidance ( both static and dynamic) and Traffic Sign Recognition. 
 This repository contains four main branches which serve to different roles:
 1) BRINGUP ---> launch: contains master.launch and master_sim.launch to call the ROS nodes that are responsible for the aforementioned tasks. The former is for the real vehicle whilw the latter is to test the behaviour of a digital twin of the vehicle in Webots. 
         ---> controllers: contains the python module "OsoyooPi_controller.py" that controls the real vehicle, so the code in which are defined all the I/O connections, the velocities functions and the steering system functions to make the vehicle move. It also has "cmd_sub.py" which is thwe ROS subscriber to the "cmd_vel" ROS topic which contains both longitudinal and translational velocity odf the vehicle at each time instant.
