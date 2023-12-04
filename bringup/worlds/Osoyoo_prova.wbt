@@ -1,0 +1,54 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      material1 "Rubber"
+      material2 "Floor"
+      coulombFriction [
+        1, 0.8
+      ]
+      bounce 0.7
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.6164389613424208 0.5955073544460107 0.5151446376890583 4.385144818855466
+  position -2.9803962086850926 8.438834625168859 -1.4637341367056136
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  contactMaterial "Floor"
+  floorSize 7 7
+  floorTileSize 1 1
+  floorAppearance Appearance {
+    material Material {
+    }
+    texture ImageTexture {
+      url [
+        "textures/grid.png"
+      ]
+    }
+    textureTransform TextureTransform {
+      scale 10 10
+    }
+  }
+  wallThickness 0.0001
+  wallHeight 0.2
+  wallAppearance Appearance {
+    material Material {
+      diffuseColor 0.2 0.2 0.2
+    }
+  }
+}
+SolidBox {
+  translation 1.4 0.15 -1.5
+  size 0.3 0.3 0.3
+  contactMaterial "Floor"
+}
+DEF Osoyoo_Steer_Car Osoyoo_raw_model {
+  hidden rotation_3 0.5343788134539547 0.8452430263224993 -0.0018735486986499559 0.008295864757283155
+}

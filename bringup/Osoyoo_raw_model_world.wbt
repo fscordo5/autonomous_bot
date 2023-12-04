@@ -1,0 +1,333 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      material1 "Rubber"
+      material2 "Floor"
+      bounce 0.7
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.5079774002280892 -0.6907978885191349 -0.5145456617978782 4.3333816690854485
+  position 1.621735948093117 2.8091448909819343 0.2524528552915147
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  contactMaterial "Floor"
+  floorSize 7 7
+  floorTileSize 1 1
+  floorAppearance Appearance {
+    material Material {
+    }
+    texture ImageTexture {
+      url [
+        "textures/grid.png"
+      ]
+    }
+    textureTransform TextureTransform {
+      scale 10 10
+    }
+  }
+  wallThickness 0.0001
+  wallHeight 0.2
+  wallAppearance Appearance {
+    material Material {
+      diffuseColor 0.2 0.2 0.2
+    }
+  }
+}
+SolidBox {
+  translation 0.8 0.15 0
+  size 0.3 0.3 0.3
+  contactMaterial "Floor"
+}
+DEF Osoyoo_Steer_Car Robot {
+  translation 0 0.024 0
+  children [
+    DEF Steering_Servo HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.076 0.014 0.008
+      }
+      device [
+        RotationalMotor {
+          name "Steering"
+        }
+      ]
+      endPoint DEF Steering_Servo_Shaft Solid {
+        translation 0.076 0.014 0.007999999999999993
+        rotation 0 0 -1 1.5708
+        children [
+          DEF Pivot Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.6 0.6 0.6
+              }
+            }
+            geometry Cylinder {
+              height 0.004
+              radius 0.002
+            }
+          }
+          DEF Servo_Steer_Rod_Pivot Solid {
+            translation -0.024 0 0
+            children [
+              USE Pivot
+              DEF Servo_Steer_Rod_Balljoint BallJoint {
+                jointParameters BallJointParameters {
+                  anchor 0 0.01 0
+                }
+                endPoint DEF Servo_Steer_Rod_Ball Solid {
+                  translation 0 0.01 0
+                  children [
+                    DEF Ball Shape {
+                      appearance Appearance {
+                        material Material {
+                          diffuseColor 0.6 0.6 0.6
+                        }
+                      }
+                      geometry Sphere {
+                        radius 0.002
+                      }
+                    }
+                  ]
+                  name "Servo Steel Rod Ball"
+                  boundingObject USE Ball
+                  physics DEF Ball_Phy Physics {
+                  }
+                }
+              }
+            ]
+            name "Servo Steel Rod Pivot"
+            boundingObject USE Pivot
+            physics DEF Pivot_Phy Physics {
+            }
+          }
+        ]
+        name "Steer_Arm_Pivot"
+        boundingObject USE Pivot
+        physics USE Pivot_Phy
+      }
+    }
+    DEF FR_Steering HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.071 0.011 0.045
+      }
+      endPoint DEF FR_Corner Solid {
+        translation 0.071 0.011 0.045
+        children [
+          USE Pivot
+          DEF FR_Wheel_Joint HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+            }
+            endPoint VehicleWheel_Osoyoo {
+              translation 0 0 0.03
+              rotation 1 0 0 1.5708
+            }
+          }
+          DEF FR_Arm_Pivot Solid {
+            translation 0.025 0 -0.01
+            children [
+              USE Pivot
+              DEF FR_Steer_bar_Joint HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 1 0
+                  anchor 0 1 0
+                }
+                endPoint SolidReference {
+                  solidName "FL Steer Bar Pivot"
+                }
+              }
+            ]
+            name "FR Arm Pivot"
+            boundingObject USE Pivot
+            physics USE Pivot_Phy
+          }
+        ]
+        name "FR Corner"
+        boundingObject USE Pivot
+        physics USE Pivot_Phy
+      }
+    }
+    DEF FL_Steering HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.071 0.011 -0.045
+      }
+      endPoint DEF FL_Corner Solid {
+        translation 0.071 0.011 -0.045
+        children [
+          USE Pivot
+          DEF FL_Wheel_Joint HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+            }
+            endPoint VehicleWheel_Osoyoo {
+              translation 0 0 -0.03
+              rotation -1 0 0 1.5708
+            }
+          }
+          DEF FL_Arm_Pivot Solid {
+            translation 0.025 0 0.01
+            children [
+              USE Pivot
+              DEF FL_Steer_Bar_Joint HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 1 0
+                }
+                endPoint DEF FL_Steer_Bar_Pivot Solid {
+                  translation 0 -0.005 0
+                  children [
+                    USE Pivot
+                  ]
+                  name "FL Steer Bar Pivot"
+                  boundingObject USE Pivot
+                  physics USE Pivot_Phy
+                }
+              }
+              DEF FL_Arm_Steer_Rod_Joint BallJoint {
+                jointParameters BallJointParameters {
+                  anchor 0 0.006 0
+                }
+                endPoint SolidReference {
+                  solidName "Servo Steel Rod Ball"
+                }
+              }
+            ]
+            name "FL Arm Pivot"
+            boundingObject USE Pivot
+            physics USE Pivot_Phy
+          }
+        ]
+        name "FL Corner"
+        boundingObject USE Pivot
+        physics USE Pivot_Phy
+      }
+    }
+    DEF RR_Wheel_Joint HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.071 0.01 -0.078
+      }
+      device [
+        RotationalMotor {
+          name "Left Motor"
+        }
+      ]
+      endPoint VehicleWheel_Osoyoo {
+        translation -0.071 0.01 -0.078
+        rotation 1 0 0 -1.5708
+        name "RR_wheel"
+      }
+    }
+    DEF RL_Wheel_Joint HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.071 0.01 0.078
+      }
+      device [
+        RotationalMotor {
+          name "Right Motor"
+        }
+      ]
+      endPoint VehicleWheel_Osoyoo {
+        translation -0.071 0.01 0.078
+        rotation 1 0 0 1.5707996938995747
+        name "RL_Wheel"
+      }
+    }
+    DEF Base Solid {
+      translation 0 -0.0015 0
+      children [
+        DEF Base_Plate Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.9 0.9 0.9
+              transparency 0.3
+            }
+          }
+          geometry Box {
+            size 0.215 0.003 0.111
+          }
+        }
+      ]
+      name "Base"
+      boundingObject USE Base_Plate
+      physics Physics {
+      }
+    }
+    YDlidar_rotating {
+      translation -0.009 0.125 0
+    }
+    DEF Camera_Joint HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.062 0.06 0
+      }
+      device [
+        RotationalMotor {
+          name "Camera Servo"
+        }
+      ]
+      endPoint DEF Camera_Pivot Solid {
+        translation 0.062 0.06 0
+        children [
+          Camera {
+            translation 0.034 0.033 0
+            rotation 0 1 0 -1.5707996938995747
+            name "Pi_camera"
+            fieldOfView 1.885
+            width 2592
+            height 1944
+            recognition Recognition {
+            }
+          }
+          DEF Camera_Body Solid {
+            translation 0.022 0.033 0
+            rotation 0 0 1 -1.5708
+            children [
+              Shape {
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.1 0.5 0.1
+                  }
+                }
+                geometry Cylinder {
+                  height 0.022
+                  radius 0.007
+                }
+              }
+            ]
+            name "Camera_Body"
+          }
+          Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.1 0.5 0.1
+              }
+            }
+            geometry Cylinder {
+              height 0.005
+              radius 0.002
+            }
+          }
+        ]
+        name "Camera Pivot"
+      }
+    }
+  ]
+  boundingObject USE Base_Plate
+  physics DEF Car_Phy Physics {
+    density -1
+    mass 1
+    centerOfMass [
+      0 0.05 0
+    ]
+  }
+  controller "my_controller"
+}

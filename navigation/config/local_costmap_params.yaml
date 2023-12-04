@@ -1,0 +1,32 @@
+   local_costmap:
+    global_frame: map    #odom                   #defines what coordinate frame the costmap should run in
+    robot_base_frame: base_link  #defines the coordinate frame the costmap should reference for the base of the robot
+    update_frequency: 5.0   #determines the frequency, in Hz, at which the costmap will run its update loop
+    publish_frequency: 2.0  #determines the rate, in Hz, at which the costmap will publish visualization information.
+
+
+    static_map: false     #determines whether or not the costmap should initialize itself based on a map served by the map_server
+    rolling_window: true   #true means that the costmap will remain centered around the robot as the robot moves through the world
+    width: 3.0          #"width," "height," and "resolution" parameters set the width (meters), height (meters), and resolution (meters/cell) of the costmap
+    height: 3.0
+    resolution: 0.05
+
+    plugins: 
+        - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+        - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+        - {name: obstacle_layer,          type: "costmap_2d::ObstacleLayer"}
+
+    static_layer:
+        enabled:              true
+        map_topic:            "/map"
+
+
+    inflation_layer:
+        enabled:              true
+        cost_scaling_factor:  5  
+        inflation_radius:     0.3      #0.3
+
+    obstacle_layer:
+         observation_sources: laser_scan_sensor
+         footprint_clearing_enabled: true
+         laser_scan_sensor: {data_type: LaserScan, sensor_frame: base_link, clearing: true, marking: true, topic: /LaserScan}

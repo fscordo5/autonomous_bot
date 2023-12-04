@@ -1,0 +1,5 @@
+    global_costmap:
+     global_frame: map    #defines what coordinate frame the costmap should run in
+     robot_base_frame: base_link   #defines the coordinate frame the costmap should reference for the base of the robot
+     update_frequency: 5.0   #determines the frequency, in Hz, at which the costmap will run its update loop
+     static_map: true   #determines whether or not the costmap should initialize itself based on a map served by the map_server

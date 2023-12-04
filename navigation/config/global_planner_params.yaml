@@ -1,0 +1,20 @@
+##base_global_planner : navfn/NavfnROS
+base_global_planner : global_planner/GlobalPlanner 
+
+GlobalPlanner:
+  allow_unknown: true
+  visualize_potential: true
+  default_tolerance: 0.0
+  use_dijkstra: false   ###
+  use_grid_path: true ###
+  use_quadratic: true
+
+ #Optimization
+  lethal_cost: 250   #253
+  neutral_cost: 68    #66
+  cost_factor: 0.57    #0.55
+  publish_potential: true 
+  orientation_mode: 0 #####None=0, Forward=1, Interpolate=2, ForwardThenInterpolate=3, Backward=4, Leftward=5, Rightward=6
+  orientation_window_size: 1
+  outline_map: true
+  

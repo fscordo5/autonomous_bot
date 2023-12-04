@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<robot name="Osoyoo_raw_model" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.215 0.003 0.111"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.215 0.003 0.111"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="Camera Servo" type="fixed">
+    <parent link="base_link"/>
+    <child link="Camera Pivot"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.062 0.06 0" rpy="0 0 0"/>
+  </joint>
+  <link name="Camera Pivot">
+  </link>
+
+  <link name="Camera_Body">
+  </link>
+  <joint name="Camera Pivot_Camera_Body_joint" type="fixed">
+    <parent link="Camera Pivot"/>
+    <child link="Camera_Body"/>
+    <origin xyz="0.022 0.033 0" rpy="0 0 -1.5708"/>
+  </joint>
+
+  <link name="YDlidar">
+    <visual>
+      <origin xyz="0.014 0.002 0" rpy="3.1415927 -1.5707927 3.1415927"/>
+      <geometry>
+        <box size="0.07 0.012 0.095"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.014 0.002 0" rpy="3.1415927 -1.5707927 3.1415927"/>
+      <geometry>
+        <box size="0.07 0.012 0.095"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0.0175 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.032" length="0.021"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0175 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.032" length="0.021"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0.046 -0.0075 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.008"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.046 -0.0075 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.008"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_link_YDlidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="YDlidar"/>
+    <origin xyz="-0.009 0.125 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lidar_solid_1">
+  </link>
+  <joint name="lidar_lidar_solid_1_joint" type="fixed">
+    <parent link="YDlidar"/>
+    <child link="lidar_solid_1"/>
+    <origin xyz="0 0.0175 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lidar_solid_2">
+  </link>
+  <joint name="YDlidar_lidar_solid_2_joint" type="fixed">
+    <parent link="YDlidar"/>
+    <child link="lidar_solid_2"/>
+    <origin xyz="0 0.0075 0" rpy="1.5707927 0 3.1415927"/>
+  </joint>
+  <link name="Base">
+    <visual>
+      <geometry>
+        <box size="0.215 0.003 0.111"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.215 0.003 0.111"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_link_Base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="Base"/>
+    <origin xyz="0 -0.0015 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="Right Motor" type="fixed">
+    <parent link="base_link"/>
+    <child link="RL_Wheel"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="-0.071 0.01 0.078" rpy="1.5707997 0 0"/>
+  </joint>
+  <link name="RL_Wheel">
+  </link>
+
+  <joint name="Left Motor" type="fixed">
+    <parent link="base_link"/>
+    <child link="RR_wheel"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="-0.071 0.01 -0.078" rpy="-1.5708 0 0"/>
+  </joint>
+  <link name="RR_wheel">
+  </link>
+
+  <joint name="hingejoint_238" type="fixed">
+    <parent link="base_link"/>
+    <child link="FL Corner"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.071 0.011 -0.045" rpy="0 0 0"/>
+  </joint>
+
+  <link name="FL Corner">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="FL Arm Pivot">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="FL Corner_FL Arm Pivot_joint" type="fixed">
+    <parent link="FL Corner"/>
+    <child link="FL Arm Pivot"/>
+    <origin xyz="0.025 0 0.01" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="hingejoint_174" type="fixed">
+    <parent link="base_link"/>
+    <child link="FR Corner"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.071 0.011 0.045" rpy="0 0 0"/>
+  </joint>
+  <link name="FR Corner">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="FR Arm Pivot">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="FR Corner_FR Arm Pivot_joint" type="fixed">
+    <parent link="FR Corner"/>
+    <child link="FR Arm Pivot"/>
+    <origin xyz="0.025 0 -0.01" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="Steering" type="fixed">
+    <parent link="base_link"/>
+    <child link="Steer_Arm_Pivot"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.076 0.014 0.008" rpy="0 0 -1.5708"/>
+  </joint>
+ 
+  <link name="Steer_Arm_Pivot">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo Steel Rod Pivot">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="Steer_Arm_Pivot_Servo Steel Rod Pivot_joint" type="fixed">
+    <parent link="Steer_Arm_Pivot"/>
+    <child link="Servo Steel Rod Pivot"/>
+    <origin xyz="-0.024 0 0" rpy="0 0 0"/>
+  </joint>
+</robot>
